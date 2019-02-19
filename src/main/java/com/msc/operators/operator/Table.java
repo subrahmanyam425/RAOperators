@@ -160,10 +160,10 @@ public class Table
     String [] newKey    = (Arrays.asList (attrs).containsAll (Arrays.asList (key))) ? key : attrs;
 
     List <Comparable []> rows = new ArrayList <> ();
-    List<String> attrList = Arrays.asList(attribute);
+    List<String> attrList = new ArrayList<>(Arrays.asList(attribute));
 
     //  T O   B E   I M P L E M E N T E D
-
+    //implemented
     for (Comparable[] tuple: tuples) {
       Comparable[] newTuple = new Comparable[attrs.length];
       int countVal = 0;
@@ -309,16 +309,49 @@ public class Table
     String [] u_attrs = attributes2.split (" ");
 
     List <Comparable []> rows = new ArrayList <> ();
+    List<String> attrList1 = new ArrayList<>(Arrays.asList(attribute));
+    List<String> attrList2 = new ArrayList<>(Arrays.asList(table2.attribute));
+    List<Integer> indexList1 = new ArrayList<>();
+    List<Integer> indexList2 = new ArrayList<>();
 
     //  T O   B E   I M P L E M E N T E D
-    
-    for (Comparable[] tuple : tuples) {
-      for (Comparable[] innerTuple : table2.tuples) {
+    //implemented
+    for (String attr : t_attrs) {
+      int index = attrList1.indexOf(attr);
+      indexList1.add(index);
+    }
 
+    for (String attr : u_attrs) {
+      int index = attrList2.indexOf(attr);
+      indexList2.add(index);
+    }
+
+    for (int i = 0; i < attrList1.size() ; i++) {
+      if(attrList2.contains(attrList1.get(i))) {
+        int index = attrList2.indexOf(attrList1.get(i));
+        attrList2.remove(index);
+        attrList2.add(index, attrList1.get(i) + "2");
       }
     }
 
-    return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
+    int countVal;
+
+    for (Comparable[] tuple : tuples) {
+      for (Comparable[] innerTuple : table2.tuples) {
+        countVal = 0;
+        for(int i = 0 ; i < indexList1.size() ; i++) {
+          if(tuple[indexList1.get(i)].equals(innerTuple[indexList2.get(i)])) {
+            countVal++;
+          }
+        }
+        if(countVal == indexList1.size()) {
+           rows.add(ArrayUtil.concat(tuple, innerTuple));
+        }
+      }
+    }
+
+    return new Table (name + count++, ArrayUtil.concat (attrList1.toArray(new String[attrList1.size()])
+        , attrList2.toArray(new String[attrList2.size()])),
         ArrayUtil.concat (domain, table2.domain), key, rows);
   } // join
 
@@ -367,10 +400,52 @@ public class Table
     List <Comparable []> rows = new ArrayList <> ();
 
     //  T O   B E   I M P L E M E N T E D
+    //implemented
+    List<String> attrList1 = new ArrayList<>(Arrays.asList(attribute));
+    List<String> attrList2 = new ArrayList<>(Arrays.asList(table2.attribute));
+    List<Integer> indexList1 = new ArrayList<>();
+    List<Integer> indexList2 = new ArrayList<>();
 
-    // FIX - eliminate duplicate columns
-    return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
-        ArrayUtil.concat (domain, table2.domain), key, rows);
+    for (int i = 0; i < attrList1.size() ; i++) {
+      if(attrList2.contains(attrList1.get(i))) {
+        int index = attrList2.indexOf(attrList1.get(i));
+        indexList1.add(i);
+        indexList2.add(index);
+      }
+    }
+
+    int countVal;
+
+    for (Comparable[] tuple : tuples) {
+      for (Comparable[] innerTuple : table2.tuples) {
+        countVal = 0;
+        for(int i = 0 ; i < indexList1.size() ; i++) {
+          if(tuple[indexList1.get(i)].equals(innerTuple[indexList2.get(i)])) {
+            countVal++;
+          }
+        }
+        if(countVal == indexList1.size()) {
+          Comparable[] newTuple = new Comparable[attrList2.size() - indexList2.size()];
+          int j = 0;
+          for(int i = 0; i < innerTuple.length ; i++) {
+            if(!indexList2.contains(i)) {
+              newTuple[j] = innerTuple[i];
+              j++;
+            }
+          }
+          rows.add(ArrayUtil.concat(tuple, newTuple));
+        }
+      }
+    }
+
+    for (int i = 0; i < attrList1.size() ; i++) {
+      if(attrList2.contains(attrList1.get(i))) {
+        attrList2.remove(attrList1.get(i));
+      }
+    }
+
+    return new Table (name + count++, ArrayUtil.concat (attrList1.toArray(new String[attrList1.size()])
+        , attrList2.toArray(new String[attrList2.size()])), ArrayUtil.concat (domain, table2.domain), key, rows);
   } // join
 
   /************************************************************************************
