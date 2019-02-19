@@ -31,6 +31,34 @@ public class Grade {
     } catch (AssertionError e) {
       System.out.println(formatOutput("Test Two", "50", e));
     }
+    try {
+      t.testUnion(); //worth 50 marks
+      System.out.println(formatOutput("Test Three", "50", null));
+      grade += 50;
+    } catch (AssertionError e) {
+      System.out.println(formatOutput("Test Three", "50", e));
+    }
+    try {
+      t.testMinus(); //worth 50 marks
+      System.out.println(formatOutput("Test Four", "50", null));
+      grade += 50;
+    } catch (AssertionError e) {
+      System.out.println(formatOutput("Test Four", "50", e));
+    }
+    try {
+      t.testJoinByAttributes(); //worth 50 marks
+      System.out.println(formatOutput("Test Five", "50", null));
+      grade += 50;
+    } catch (AssertionError e) {
+      System.out.println(formatOutput("Test Five", "50", e));
+    }
+    try {
+      t.testJoinTables(); //worth 50 marks
+      System.out.println(formatOutput("Test Six", "50", null));
+      grade += 50;
+    } catch (AssertionError e) {
+      System.out.println(formatOutput("Test Six", "50", e));
+    }
     System.out.println("Grade :=>> "+grade);
   }
 

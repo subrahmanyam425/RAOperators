@@ -162,8 +162,6 @@ public class Table
     List <Comparable []> rows = new ArrayList <> ();
     List<String> attrList = new ArrayList<>(Arrays.asList(attribute));
 
-    //  T O   B E   I M P L E M E N T E D
-    //implemented
     for (Comparable[] tuple: tuples) {
       Comparable[] newTuple = new Comparable[attrs.length];
       int countVal = 0;
@@ -211,8 +209,6 @@ public class Table
 
     List <Comparable []> rows = new ArrayList <> ();
 
-    //  T O   B E   I M P L E M E N T E D
-    //implemented
     if(index.containsKey(keyVal)) {
       rows.add(index.get(keyVal));
     }
@@ -235,15 +231,34 @@ public class Table
 
     List <Comparable []> rows = new ArrayList <> ();
 
-    //  T O   B E   I M P L E M E N T E D
-    //implemented
     if(Arrays.equals(this.attribute, table2.attribute)) {
       for (Comparable[] tuple: tuples) {
         rows.add(tuple);
       }
 
       for (Comparable[] tuple: table2.tuples) {
-        rows.add(tuple);
+        int countVal = 0;
+        for (Comparable[] row : rows) {
+          countVal = 0;
+          for(int i = 0 ; i < row.length ; i++) {
+            if(row[i] instanceof Integer) {
+              if(((Integer)row[i]).intValue() == ((Integer)tuple[i]).intValue()) {
+                countVal++;
+              }
+            } else {
+              if (row[i] == tuple[i]) {
+                countVal++;
+              }
+            }
+          }
+
+          if(countVal == tuple.length) {
+            break;
+          }
+        }
+        if(countVal != tuple.length) {
+          rows.add(tuple);
+        }
       }
     }
 
@@ -265,22 +280,34 @@ public class Table
     if (! compatible (table2)) return null;
 
     List <Comparable []> rows = new ArrayList <> ();
-    boolean matched = false;
 
-    //  T O   B E   I M P L E M E N T E D
-    //implemented
     if(Arrays.equals(this.attribute, table2.attribute)) {
       for (Comparable[] tuple: tuples) {
         rows.add(tuple);
       }
 
       for (Comparable[] innerTuple: table2.tuples) {
-        if(tuples.contains(innerTuple)) {
-          rows.remove(innerTuple);
+        for (Comparable[] tuple: tuples) {
+          int countVal = 0;
+          for(int i = 0 ; i < tuple.length ; i++) {
+            if(tuple[i] instanceof Integer) {
+              if(((Integer)tuple[i]).intValue() == ((Integer) innerTuple[i]).intValue()) {
+                countVal++;
+              }
+            } else {
+              if(tuple[i] == innerTuple[i]) {
+                countVal++;
+              }
+            }
+            if(countVal == tuple.length) {
+              break;
+            }
+          }
+          if(countVal == tuple.length) {
+            rows.remove(tuple);
+          }
         }
-//        else {
-//          rows.add(innerTuple);
-//        }
+
       }
     }
 
@@ -314,8 +341,6 @@ public class Table
     List<Integer> indexList1 = new ArrayList<>();
     List<Integer> indexList2 = new ArrayList<>();
 
-    //  T O   B E   I M P L E M E N T E D
-    //implemented
     for (String attr : t_attrs) {
       int index = attrList1.indexOf(attr);
       indexList1.add(index);
@@ -399,8 +424,6 @@ public class Table
 
     List <Comparable []> rows = new ArrayList <> ();
 
-    //  T O   B E   I M P L E M E N T E D
-    //implemented
     List<String> attrList1 = new ArrayList<>(Arrays.asList(attribute));
     List<String> attrList2 = new ArrayList<>(Arrays.asList(table2.attribute));
     List<Integer> indexList1 = new ArrayList<>();
