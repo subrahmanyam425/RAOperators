@@ -687,7 +687,11 @@ public class Table
    */
   private boolean typeCheck (Comparable [] t)
   {
-    //  T O   B E   I M P L E M E N T E D
+    if(this.attribute.length != t.length) return false;
+
+    for(int i = 0; i < this.domain.length; i++) {
+      if(this.domain[i] != t[i].getClass()) return false;
+    }
 
     return true;
   } // typeCheck
