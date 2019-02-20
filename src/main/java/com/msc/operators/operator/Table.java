@@ -8,7 +8,6 @@ package com.msc.operators.operator;
 import com.msc.operators.util.PredicateMod;
 import com.msc.operators.util.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 import static java.lang.System.out;
 
@@ -209,8 +208,10 @@ public class Table
 
     List <Comparable []> rows = new ArrayList <> ();
 
-    if(index.containsKey(keyVal)) {
-      rows.add(index.get(keyVal));
+    if(mType != MapType.NO_MAP) {
+      if(index.containsKey(keyVal)) {
+        rows.add(index.get(keyVal));
+      }
     }
 
     return new Table (name + count++, attribute, domain, key, rows);
