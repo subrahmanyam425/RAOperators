@@ -30,9 +30,5 @@
       </plugin>
     </plugins>
   </build>
-  
-  <pluginGroups>
-    <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
-</pluginGroups>
 
 </project>
