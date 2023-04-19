@@ -3,7 +3,23 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+  
+  <servers>
+    <server>
+        <id>sonarqube</id>
+        <username>admin</username>
+        <password>netenrich</password>
+    </server>
+</servers>
+<profiles>
+    <profile>
+        <id>sonar</id>
+        <properties>
+            <sonar.host.url>http://172.17.0.1:9000</sonar.host.url>
+        </properties>
+    </profile>
+</profiles>
+  
   <groupId>database.operator</groupId>
   <artifactId>simple-database-operators</artifactId>
   <version>1.0-SNAPSHOT</version>
