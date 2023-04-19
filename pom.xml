@@ -20,9 +20,9 @@
 
   <build>
     <plugins>
-      <pluginGroups>
-        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
-      </pluginGroups>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+      </plugin>
     </plugins>
   </build>
 
