@@ -21,9 +21,18 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.sonarsource.scanner.maven</groupId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
       </plugin>
     </plugins>
   </build>
+  
+  <pluginGroups>
+    <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+</pluginGroups>
 
 </project>
