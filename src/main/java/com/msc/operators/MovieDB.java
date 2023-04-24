@@ -15,7 +15,7 @@ public class MovieDB {
   public static void main (String [] args)
   {
     out.println ();
-    password="Rgukt@123";
+   
     final Table movie = new Table ("movie", "title year length genre studioName producerNo",
         "String Integer Integer String String Integer", "title year");
 
