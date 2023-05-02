@@ -17,7 +17,7 @@ public class MovieDB {
         String Username;
         String Password;
         Password = "admin";
-        Username = "admin";
+        Username = "admin123";
         System.out.println(Password);
         System.out.println(Username);
     out.println ();
